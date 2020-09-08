@@ -37,7 +37,8 @@
     <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">Расшифровать информацию, содержащуюся в QR-коде, можно при помощи специального приложения, установленного на смартфоне – сканера QR-code. Создать свой QR-код Вы можете на этом сайте, а также с помощью разнообразных online-сервисов и программ.</p>
     <div class="text-center text-h4 q-my-lg">Некоторые сканеры QR-кода</div>
     <div class="text-center q-mb-lg">
-      <q-chip color="indigo" text-color="white" size="28px" icon="phone_android">Для Android</q-chip>
+      <q-chip v-if="$q.screen.gt.xs" color="indigo" text-color="white" size="28px" icon="phone_android">Для Android</q-chip>
+      <q-chip v-else color="indigo" text-color="white" size="28px">Для Android</q-chip>
     </div>
     <div class="fit row justify-center items-center content-center">
       <q-img src="~assets/1.webp" style="width: 100px; height: 100px;" />
@@ -61,7 +62,8 @@
       <div class="col text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">Некоторые производители смартфонов на Android предустанавливают на свои модели приложения для считывания QR и штрих-кодов. Изучите инструкцию пользователя - возможно Ваш смартфон уже обладает необходимым функционалом.</div>
     </div>
     <div class="text-center q-my-lg">
-      <q-chip color="orange" text-color="white" size="28px" icon="phone_iphone">Для iPhone</q-chip>
+      <q-chip v-if="$q.screen.gt.xs" color="orange" text-color="white" size="28px" icon="phone_iphone">Для iPhone</q-chip>
+      <q-chip v-else color="orange" text-color="white" size="28px">Для iPhone</q-chip>
     </div>
     <div class="fit row justify-center items-center content-center">
       <q-img src="~assets/3.png" style="width: 100px; height: 100px;" />

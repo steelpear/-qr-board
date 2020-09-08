@@ -21,7 +21,7 @@
             v-for="(tab, index) in tabs"
             :key="index"
             :name="tab.name"
-            class="q-px-none"
+            class="q-px-xs"
           >
             <qr-sms v-if="tab.name === 'sms'" />
             <qr-text v-else-if="tab.name === 'text'" />
@@ -52,6 +52,44 @@
           />
           <div class="q-mt-lg row wrap justify-around items-center content-center">
             <q-btn round color="amber" glossy icon="fas fa-paint-brush" size="lg">
+              <q-menu
+                :offset="[450, 0]"
+              >
+                <div class="q-gutter-md row q-pa-md">
+                  <div>
+                  <div>Фон</div>
+                  <q-color
+                    v-model="qrBackColor"
+                    no-header
+                    no-footer
+                    default-view="palette"
+                  />
+                  </div>
+                  <div>
+                  <div>Пиксели</div>
+                  <q-color
+                    v-model="qrFrontColor"
+                    no-header
+                    no-footer
+                    default-view="palette"
+                  />
+                  </div>
+                </div>
+                <q-separator inset class="q-mb-xs" />
+                <div class="row justify-between items-center content-center">
+                  <q-btn class="q-ma-sm" flat rounded color="indigo" label="Сбросить" @click="resetColors" />
+                  <q-toggle
+                    v-model="inverse"
+                    color="primary"
+                    keep-color
+                    label="Поменять"
+                    checked-icon="check"
+                    unchecked-icon="clear"
+                    @input="inverseColors"
+                  />
+                  <q-btn class="q-ma-sm" flat rounded color="indigo" label="Ok" v-close-popup />
+                </div>
+              </q-menu>
               <q-tooltip content-class="bg-amber" content-style="font-size: 15px;" anchor="top middle" self="bottom right">
                 Раскрасить
               </q-tooltip>
@@ -61,7 +99,7 @@
                 Опубликовать
               </q-tooltip>
             </q-btn>
-            <q-btn round color="secondary" glossy icon="fas fa-download" size="lg">
+            <q-btn round color="secondary" glossy icon="fas fa-download" size="lg" @click="saveImg">
               <q-tooltip content-class="bg-secondary" content-style="font-size: 15px;" anchor="top right" self="bottom middle">
                 Сохранить
               </q-tooltip>
@@ -116,7 +154,8 @@ export default {
       ],
       qrWidth: 300,
       qrFrontColor: '#000000ff',
-      qrBackColor: '#ffffffff'
+      qrBackColor: '#ffffffff',
+      inverse: false
     }
   },
   methods: {
@@ -128,6 +167,25 @@ export default {
         this.$q.loading.hide()
         this.timer = undefined
       }, 500)
+    },
+    resetColors () {
+      this.qrFrontColor = '#000000ff'
+      this.qrBackColor = '#ffffffff'
+      this.inverse = false
+    },
+    inverseColors () {
+      const front = this.qrFrontColor
+      const back = this.qrBackColor
+      this.qrFrontColor = back
+      this.qrBackColor = front
+    },
+    saveImg () {
+      const canvas = this.$refs.canvas.$el
+      const dataURL = canvas.toDataURL('image/jpeg', 1)
+      const link = document.createElement('a')
+      link.href = dataURL
+      link.download = 'qr-board.jpg'
+      link.click()
     }
   },
   computed: {

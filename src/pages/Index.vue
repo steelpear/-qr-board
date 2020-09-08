@@ -1,7 +1,7 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-lg">
     <q-infinite-scroll @load="fetchData" :offset="250">
-      <div class="q-gutter-md row justify-center item-start q-px-xl">
+      <div class="q-gutter-md row wrap justify-center item-start">
         <div  v-for="(qrItem, index) in qrItems" :key="index" class="col-auto">
           <q-img
             :src="qrItem.qrImgSrc"
