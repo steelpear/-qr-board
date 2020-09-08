@@ -21,6 +21,7 @@
             v-for="(tab, index) in tabs"
             :key="index"
             :name="tab.name"
+            class="q-px-none"
           >
             <qr-sms v-if="tab.name === 'sms'" />
             <qr-text v-else-if="tab.name === 'text'" />
@@ -39,7 +40,7 @@
         <div class="col q-mx-auto" :style="{ 'max-width': qrWidth + 'px' }">
           <qrcode
             ref="canvas"
-            value="QR-Generator"
+            :value="qrValue ? qrValue : 'QR-Board'"
             :options="{
               color: {
                 dark: qrFrontColor,
@@ -101,7 +102,6 @@ export default {
   },
   data () {
     return {
-      qrTab: 'sms',
       tabs: [
         { name: 'sms', icon: 'fas fa-sms' },
         { name: 'text', icon: 'fas fa-font' },
@@ -128,6 +128,37 @@ export default {
         this.$q.loading.hide()
         this.timer = undefined
       }, 500)
+    }
+  },
+  computed: {
+    qrTab: {
+      get () { return this.$store.getters['board/GET_QRTAB'] },
+      set (value) { this.$store.commit('board/SET_QRTAB', value) }
+    },
+    qrValue () {
+      if (this.qrTab === 'sms') {
+        return this.$store.getters['board/GET_SMS']
+      } else if (this.qrTab === 'text') {
+        return this.$store.getters['board/GET_TEXT']
+      } else if (this.qrTab === 'card') {
+        return this.$store.getters.get_vcard
+      } else if (this.qrTab === 'map') {
+        return this.$store.getters.get_geo_data
+      } else if (this.qrTab === 'wifi') {
+        return this.$store.getters.get_wifi
+      } else if (this.qrTab === 'link') {
+        return this.$store.getters.get_link
+      } else if (this.qrTab === 'whatsapp') {
+        return this.$store.getters.get_whatsapp
+      } else if (this.qrTab === 'skype') {
+        return this.$store.getters.get_skype
+      } else if (this.qrTab === 'telegram') {
+        return this.$store.getters.get_telegram
+      } else if (this.qrTab === 'youtube') {
+        return this.$store.getters.get_youtube
+      } else {
+        return false
+      }
     }
   },
   mounted () {
