@@ -1,5 +1,5 @@
 <template>
-<div class="q-px-xl q-py-md">
+<div class="q-py-md" :class="{ 'q-px-xl' : $q.screen.gt.xs }">
   <q-layout view="hHh lpR fFf">
 
     <q-header class="bg-white text-black q-py-xs" :class="$q.screen.gt.xs ? 'q-px-xl' : 'q-px-md'">

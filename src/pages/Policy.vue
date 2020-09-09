@@ -1,5 +1,5 @@
 <template>
-  <q-page :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-xs'">
+  <div :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-lg'">
     <div class="text-center" :class="$q.screen.gt.sm ? 'text-h4 q-mb-lg' : 'text-h5 q-mb-sm'">Использование файлов cookie и политика конфиденциальности</div>
     <q-img src="~assets/cookie.png" style="width:160px; float:left;" class="gt-sm" />
     <p class="text-justify text-grey-9" style="font-size: 18px;">
@@ -48,7 +48,7 @@
     <p class="text-justify text-grey-9" style="font-size: 18px;">
       Файлы cookie <span class="text-bold">не содержат</span> Ваших персональных данных, благодаря которым возможна идентификация Вашей личности. Файлы cookie <span class="text-bold">не содержат фамилии, имени, отчества, адресов электронной почты, домашнего адреса, номеров телефонов, номеров банковских карт</span> и прочих подобных данных. <span class="text-bold">Мы не собираем, не храним и не передаём третим лицам персональные данные</span>, пользуясь которыми можно идентифицировать личность.
     </p>
-  </q-page>
+  </div>
 </template>
 
 <script>

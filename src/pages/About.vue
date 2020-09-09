@@ -1,7 +1,7 @@
 <template>
-  <q-page :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-xs'">
+  <div :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-lg'">
     <div class="text-center text-h3 q-my-lg">Что такое QR-Board?</div>
-    <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;"><span class="text-bold">QR-Board</span> - это доска объявлений в формате QR-кода. Вы можете разместить своё объявление в популярных QR-code форматах - географические координаты, визитка VCard, ссылка на YouTube - канал, подключение к Wi-Fi, ссылка на интернет-ресурс и других. Напоминаем, что всю ответственность за содержимое объявления берёт на себя его податель.</p>
+    <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> - это доска объявлений в формате QR-кода. Вы можете разместить своё объявление в популярных QR-code форматах - географические координаты, визитка VCard, ссылка на YouTube - канал, подключение к Wi-Fi, ссылка на интернет-ресурс и других. Напоминаем, что всю ответственность за содержимое объявления берёт на себя его податель.</p>
     <q-timeline :layout="layout" color="secondary" class="q-my-xl">
       <q-timeline-entry
         title="Опубликовать"
@@ -32,9 +32,9 @@
     </q-timeline>
     <div class="text-center text-h3 q-my-lg">Что такое QR-код?</div>
     <q-img src="~assets/pic.png" style="width:250px; float:right;" class="gt-sm shadow-9 q-ml-lg" />
-    <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;"><span class="text-bold">QR-код</span> (Quick Response Code) был придуман в 1994 году в Японии для нужд автомобильной промышленности для маркировки и учёта деталей. Штрих-код, который использовался до этого, перестал справляться с возросшим объёмом информации.</p>
-    <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">С улучшением качества камер смартфонов QR-код получал всё более широкое распространение и в итоге шагнул далеко за пределы автоконцернов. QR-код способен в графическом виде компактно зашифровать довольно значительный объём информации – текст, ссылку, визитку, географическое положение, параметры подключения к Wi-Fi сети и многое другое.</p>
-    <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">Расшифровать информацию, содержащуюся в QR-коде, можно при помощи специального приложения, установленного на смартфоне – сканера QR-code. Создать свой QR-код Вы можете на этом сайте, а также с помощью разнообразных online-сервисов и программ.</p>
+    <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-код</span> (Quick Response Code) был придуман в 1994 году в Японии для нужд автомобильной промышленности для маркировки и учёта деталей. Штрих-код, который использовался до этого, перестал справляться с возросшим объёмом информации.</p>
+    <p class="text-grey-9 text-justify" style="font-size: 18px;">С улучшением качества камер смартфонов QR-код получал всё более широкое распространение и в итоге шагнул далеко за пределы автоконцернов. QR-код способен в графическом виде компактно зашифровать довольно значительный объём информации – текст, ссылку, визитку, географическое положение, параметры подключения к Wi-Fi сети и многое другое.</p>
+    <p class="text-grey-9 text-justify" style="font-size: 18px;">Расшифровать информацию, содержащуюся в QR-коде, можно при помощи специального приложения, установленного на смартфоне – сканера QR-code. Создать свой QR-код Вы можете на этом сайте, а также с помощью разнообразных online-сервисов и программ.</p>
     <div class="text-center text-h4 q-my-lg">Некоторые сканеры QR-кода</div>
     <div class="text-center q-mb-lg">
       <q-chip v-if="$q.screen.gt.xs" color="indigo" text-color="white" size="28px" icon="phone_android">Для Android</q-chip>
@@ -59,7 +59,7 @@
     </div>
     <div class="row justify-center items-center content-center q-mt-lg">
       <q-icon name="phone_android" size="xl" color="grey-9" class="q-mr-sm gt-sm" />
-      <div class="col text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">Некоторые производители смартфонов на Android предустанавливают на свои модели приложения для считывания QR и штрих-кодов. Изучите инструкцию пользователя - возможно Ваш смартфон уже обладает необходимым функционалом.</div>
+      <div class="col text-grey-9 text-justify" style="font-size: 18px;">Некоторые производители смартфонов на Android предустанавливают на свои модели приложения для считывания QR и штрих-кодов. Изучите инструкцию пользователя - возможно Ваш смартфон уже обладает необходимым функционалом.</div>
     </div>
     <div class="text-center q-my-lg">
       <q-chip v-if="$q.screen.gt.xs" color="orange" text-color="white" size="28px" icon="phone_iphone">Для iPhone</q-chip>
@@ -75,7 +75,7 @@
     </div>
     <div class="row justify-center items-center content-center q-mt-lg">
       <q-icon name="phone_iphone" size="xl" color="grey-9" class="q-mr-sm gt-sm" />
-      <div class="col text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;">Начиная с iOS 11 в камере iPhone и iPad появилась функция QR-ридера, предназначенная для считывания QR и штрих-кодов.</div>
+      <div class="col text-grey-9 text-justify" style="font-size: 18px;">Начиная с iOS 11 в камере iPhone и iPad появилась функция QR-ридера, предназначенная для считывания QR и штрих-кодов.</div>
     </div>
     <div class="row justify-center items-center">
       <q-icon name="far fa-file-word" size="sm" color="grey-9" class="q-mr-sm gt-sm" />
@@ -98,9 +98,9 @@
     </div>
     <q-separator class="q-my-lg" />
     <div v-if="settings.switchDonate">
-      <p class="text-grey-9" :class="$q.screen.gt.xs ? 'text-justify' : 'text-center'" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поблагодарить разработчика - Вы можете либо сделать небольшое добровольное пожертвование на развитие проекта путём перечисления на кошелёк Яндекс.Денег <a class="text-bold" :href="'https://money.yandex.ru/to/' + settings.yandexMoney" target="_blank">{{ settings.yandexMoney }}</a>, либо поделиться информацией об этом сайте в социальных сетях. Либо и то и другое) Спасибо.</p>
+      <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поблагодарить разработчика - Вы можете либо сделать небольшое добровольное пожертвование на развитие проекта путём перечисления на кошелёк Яндекс.Денег <a class="text-bold" :href="'https://money.yandex.ru/to/' + settings.yandexMoney" target="_blank">{{ settings.yandexMoney }}</a>, либо поделиться информацией об этом сайте в социальных сетях. Либо и то и другое) Спасибо.</p>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script>

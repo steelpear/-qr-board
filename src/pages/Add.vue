@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md">
-    <div class="row">
+  <div :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
+    <div class="row justify-center">
       <div class="col-12 col-md-7">
         <q-tabs
           v-model="qrTab"
@@ -14,6 +14,7 @@
             :key="index"
             :name="tab.name"
             :icon="tab.icon"
+            class="q-px-sm"
           />
         </q-tabs>
         <q-tab-panels v-model="qrTab" animated>
@@ -36,8 +37,8 @@
           </q-tab-panel>
         </q-tab-panels>
       </div>
-      <div class="col-12 col-md-5">
-        <div class="col q-mx-auto" :style="{ 'max-width': qrWidth + 'px' }">
+      <div class="col-12 col-md-4">
+        <div class="col" :class="$q.screen.gt.sm ? 'float-right' : 'q-mx-auto'" :style="{ 'max-width': qrWidth + 'px' }">
           <qrcode
             ref="canvas"
             :value="qrValue ? qrValue : 'QR-Board'"
@@ -82,7 +83,7 @@
                     v-model="inverse"
                     color="primary"
                     keep-color
-                    label="Поменять"
+                    label="Поменять цвета"
                     checked-icon="check"
                     unchecked-icon="clear"
                     @input="inverseColors"
