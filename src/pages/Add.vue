@@ -1,6 +1,6 @@
 <template>
-  <div :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
-    <div class="row justify-center">
+  <div :class="$q.screen.gt.sm ? 'q-px-lg' : 'q-px-sm'">
+    <div class="row justify-center" :class="{ 'q-gutter-lg' : $q.screen.gt.sm }">
       <div class="col-12 col-md-7">
         <q-tabs
           v-model="qrTab"
