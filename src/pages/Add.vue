@@ -52,7 +52,8 @@
             class="shadow-8"
           />
           <div class="q-mt-lg row wrap justify-around items-center content-center">
-            <q-btn round color="amber" glossy icon="fas fa-paint-brush" size="lg">
+            <q-btn round color="amber" glossy icon="fas fa-paint-brush" size="lg" class="lt-md" @click="paintMobileDialog = true" />
+            <q-btn round color="amber" glossy icon="fas fa-paint-brush" size="lg" class="gt-sm">
               <q-menu
                 :offset="[450, 0]"
               >
@@ -109,6 +110,57 @@
         </div>
       </div>
     </div>
+    <q-dialog v-model="paintMobileDialog">
+      <q-card>
+        <q-card-section>
+          <div>Фон</div>
+          <q-color
+            v-model="qrBackColor"
+            no-header
+            no-footer
+            default-view="palette"
+            :palette="customPalette"
+          />
+          <div class="q-mt-xs">Пиксели</div>
+          <q-color
+            v-model="qrFrontColor"
+            no-header
+            no-footer
+            default-view="palette"
+            :palette="customPalette"
+          />
+        </q-card-section>
+        <q-card-section class="q-py-none">
+          <div class="flex justify-center">
+          <qrcode
+            :value="qrValue ? qrValue : 'QR-Board'"
+            :options="{
+              color: {
+                dark: qrFrontColor,
+                light: qrBackColor
+              },
+              width: 220
+            }"
+            class="shadow-8"
+          />
+          </div>
+        </q-card-section>
+        <q-card-actions>
+          <div class="row justify-between items-center content-center">
+            <q-btn class="q-ma-sm" flat rounded color="indigo" label="Сбросить" @click="resetColors" />
+            <q-toggle
+              v-model="inverse"
+              color="primary"
+              keep-color
+              checked-icon="check"
+              unchecked-icon="clear"
+              @input="inverseColors"
+            />
+            <q-btn class="q-ma-sm" flat rounded color="indigo" label="Ok" v-close-popup />
+          </div>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -156,7 +208,9 @@ export default {
       qrWidth: 300,
       qrFrontColor: '#000000ff',
       qrBackColor: '#ffffffff',
-      inverse: false
+      inverse: false,
+      paintMobileDialog: false,
+      customPalette: ['#ffffffff', '#999999', '#7F7F7F', '#666666', '#4C4C4C', '#333333', '#191919', '#20124d', '#4c1130', '#000000ff', '#990000', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47', '#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0', '#cc0000', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79', '#660000', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763']
     }
   },
   methods: {
