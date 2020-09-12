@@ -170,11 +170,12 @@
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
-        <q-card-section>
+        <q-card-section class="flex justify-center">
           <vue-recaptcha
             :sitekey="settings.ReCAPTCHAkey"
             :loadRecaptchaScript="true"
             @verify="recaptchaOk"
+            :size="$q.screen.xs ? 'compact' : 'normal'"
           />
         </q-card-section>
       </q-card>
