@@ -96,7 +96,7 @@
                 Раскрасить
               </q-tooltip>
             </q-btn>
-            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg" @click="settings.switchReCAPTCHA ? recaptchaDialog = true : publicQr()">
+            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg" @click="settings.switchReCAPTCHA && $q.screen.gt.sm ? recaptchaDialog = true : publicQr()">
               <q-tooltip content-class="bg-indigo" content-style="font-size: 15px;" anchor="top middle" self="bottom middle">
                 Опубликовать
               </q-tooltip>
@@ -183,11 +183,11 @@
 
     <q-dialog v-model="publicDialog">
       <q-card>
-        <q-card-section class="row items-center q-pb-none">
-          <q-icon name="fas fa-info-circle" size="md" color="primary" />
-          <div class="text-h5 q-mx-md">Объявление успешно опубликовано</div>
+        <q-card-section class="row items-center content-center q-pb-none">
+          <q-icon name="fas fa-info-circle" size="md" color="primary" class="gt-xs" />
+          <div class="text-h5 text-center q-mx-md">Объявление <span class="gt-xs">успешно</span> опубликовано</div>
           <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
+          <q-btn icon="close" class="gt-xs" flat round dense v-close-popup />
         </q-card-section>
         <q-card-section class="q-pb-none">
           <div class="row justify-center items-center">
@@ -198,9 +198,9 @@
           </div>
         </q-card-section>
         <q-card-actions>
-            <q-btn class="q-ma-sm" flat rounded icon="far fa-copy" color="indigo" label="Копировать" @click="copyClipboard" />
+            <q-btn class="q-ma-sm" flat rounded icon="far fa-copy" color="indigo" :label="$q.screen.gt.xs ? 'Копировать' : ''" @click="copyClipboard" />
             <q-space />
-            <q-btn class="q-ma-sm" flat rounded icon="fas fa-eye" color="indigo" label="Посмотреть" @click="showPublicAd(qrId)" />
+            <q-btn class="q-ma-sm" flat rounded icon="fas fa-eye" color="indigo" :label="$q.screen.gt.xs ? 'Посмотреть' : ''" @click="showPublicAd(qrId)" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -326,7 +326,7 @@ export default {
           this.$q.notify({
             type: 'positive',
             position: 'top',
-            message: 'Номер объявления скопирован',
+            message: 'Номер скопирован',
             timeout: 2500,
             actions: [{ icon: 'close', color: 'white' }]
           })
