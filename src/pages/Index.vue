@@ -134,6 +134,18 @@ export default {
     this.routeProps.skip = 0
     this.showLoading()
     this.fetchData()
+    if (this.$route.query.id) {
+      axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
+      })
+        .then(response => {
+          this.qrId = response.data.qrId
+          this.qrImgDialogSrc = response.data.qrImgSrc
+          this.showQrDialog = true
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   beforeDestroy () {
     if (this.timer !== undefined) {

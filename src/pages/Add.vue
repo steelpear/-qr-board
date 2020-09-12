@@ -96,7 +96,7 @@
                 Раскрасить
               </q-tooltip>
             </q-btn>
-            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg">
+            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg" @click="settings.switchReCAPTCHA ? recaptchaDialog = true : publicQr()">
               <q-tooltip content-class="bg-indigo" content-style="font-size: 15px;" anchor="top middle" self="bottom middle">
                 Опубликовать
               </q-tooltip>
@@ -132,17 +132,17 @@
         </q-card-section>
         <q-card-section class="q-py-none">
           <div class="flex justify-center">
-          <qrcode
-            :value="qrValue ? qrValue : 'QR-Board'"
-            :options="{
-              color: {
-                dark: qrFrontColor,
-                light: qrBackColor
-              },
-              width: 220
-            }"
-            class="shadow-8"
-          />
+            <qrcode
+              :value="qrValue ? qrValue : 'QR-Board'"
+              :options="{
+                color: {
+                  dark: qrFrontColor,
+                  light: qrBackColor
+                },
+                width: 220
+              }"
+              class="shadow-8"
+            />
           </div>
         </q-card-section>
         <q-card-actions>
@@ -161,10 +161,55 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="recaptchaDialog">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <q-icon name="fas fa-robot" size="md" color="red" />
+          <div class="text-h6 q-ml-lg">Вы не робот?</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <q-card-section>
+          <vue-recaptcha
+            :sitekey="settings.ReCAPTCHAkey"
+            :loadRecaptchaScript="true"
+            @verify="recaptchaOk"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog v-model="publicDialog">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <q-icon name="fas fa-info-circle" size="md" color="primary" />
+          <div class="text-h5 q-mx-md">Объявление успешно опубликовано</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <q-card-section class="q-pb-none">
+          <div class="row justify-center items-center">
+            <div class="text-h6 q-mr-sm">Номер объявления:</div>
+            <q-chip color="primary" text-color="white" class="text-h6">
+              {{ qrId }}
+            </q-chip>
+          </div>
+        </q-card-section>
+        <q-card-actions>
+            <q-btn class="q-ma-sm" flat rounded icon="far fa-copy" color="indigo" label="Копировать" @click="copyClipboard" />
+            <q-space />
+            <q-btn class="q-ma-sm" flat rounded icon="fas fa-eye" color="indigo" label="Посмотреть" @click="showPublicAd(qrId)" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import { copyToClipboard } from 'quasar'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 import qrSms from '../components/qrSms.vue'
 import qrText from '../components/qrText.vue'
@@ -176,6 +221,8 @@ import qrWhatsapp from '../components/qrWhatsapp.vue'
 import qrSkype from '../components/qrSkype.vue'
 import qrTelegram from '../components/qrTelegram.vue'
 import qrYoutube from '../components/qrYoutube.vue'
+import VueRecaptcha from 'vue-recaptcha'
+
 export default {
   name: 'PageAdd',
   components: {
@@ -189,7 +236,8 @@ export default {
     qrSkype,
     qrTelegram,
     qrYoutube,
-    qrcode: VueQrcode
+    qrcode: VueQrcode,
+    VueRecaptcha
   },
   data () {
     return {
@@ -210,6 +258,9 @@ export default {
       qrBackColor: '#ffffffff',
       inverse: false,
       paintMobileDialog: false,
+      recaptchaDialog: false,
+      publicDialog: false,
+      qrId: 'qr123456',
       customPalette: ['#ffffffff', '#999999', '#7F7F7F', '#666666', '#4C4C4C', '#333333', '#191919', '#20124d', '#4c1130', '#000000ff', '#990000', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47', '#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0', '#cc0000', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79', '#660000', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763']
     }
   },
@@ -241,6 +292,47 @@ export default {
       link.href = dataURL
       link.download = 'qr-board.jpg'
       link.click()
+    },
+    getRandomInt: function (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
+    },
+    publicQr () {
+      const imgSrc = this.$refs.canvas.$el.toDataURL()
+      const id = 'qr' + this.getRandomInt(100000, 999999)
+      axios.post(process.env.VUE_APP_SERVER + '/api/records', {
+        qrId: id,
+        qrImgSrc: imgSrc,
+        qrDate: new Date()
+      })
+        .then(response => {
+          this.qrId = id
+          this.publicDialog = true
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    recaptchaOk () {
+      this.publicQr()
+      this.recaptchaDialog = false
+    },
+    showPublicAd: function (qrId) {
+      this.$router.push({ path: '/', query: { id: qrId } })
+    },
+    copyClipboard () {
+      copyToClipboard(this.qrId)
+        .then(() => {
+          this.$q.notify({
+            type: 'positive',
+            position: 'top',
+            message: 'Номер объявления скопирован',
+            timeout: 2500,
+            actions: [{ icon: 'close', color: 'white' }]
+          })
+        })
+        .catch(() => {
+          console.log('Error copyng to clipboard!')
+        })
     }
   },
   computed: {
@@ -272,6 +364,9 @@ export default {
       } else {
         return false
       }
+    },
+    settings: {
+      get () { return this.$store.getters['board/GET_SETTINGS'] }
     }
   },
   mounted () {

@@ -233,18 +233,6 @@ export default {
     if (this.$q.cookies.has('cookie_assent') || !settings.switchCookie) {
       this.bottomSheet = false
     } else { this.bottomSheet = true }
-    if (this.$route.query.id) {
-      axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
-      })
-        .then(response => {
-          this.qrId = response.data.qrId
-          this.qrImgDialogSrc = response.data.qrImgSrc
-          this.showQrDialog = true
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
   }
 }
 </script>
