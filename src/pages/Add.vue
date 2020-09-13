@@ -351,9 +351,9 @@ export default {
       } else if (this.qrTab === 'map') {
         return this.$store.getters['board/get_geo_data']
       } else if (this.qrTab === 'wifi') {
-        return this.$store.getters['board/get_vcard']
+        return this.$store.getters['board/get_wifi']
       } else if (this.qrTab === 'link') {
-        return this.$store.getters['board/get_vcard']
+        return this.$store.getters['board/get_link']
       } else if (this.qrTab === 'whatsapp') {
         return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'skype') {

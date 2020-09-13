@@ -21,7 +21,13 @@ const state = {
     vCardPractice: '',
     vCardNote: ''
   },
-  geoData: [55.75115178233711, 37.61898136805887]
+  geoData: [55.75115178233711, 37.61898136805887],
+  wifiData: {
+    networkName: '',
+    networkPassword: '',
+    networkType: 'WPA/WPA2'
+  },
+  linkData: ''
 }
 
 const getters = {
@@ -67,7 +73,21 @@ const getters = {
   get_geo_data: (state) => {
     const geo = 'GEO:' + state.geoData
     return geo
-  }
+  },
+  get_wifi_name: state => state.wifiData.networkName,
+  get_wifi_password: state => state.wifiData.networkPassword,
+  get_wifi_type: state => state.wifiData.networkType,
+  get_wifi: (state) => {
+    let wifi = ''
+    const name = (!state.wifiData.networkName) ? '' : state.wifiData.networkName
+    const password = (!state.wifiData.networkPassword) ? '' : state.wifiData.networkPassword
+    const type = (state.wifiData.networkType === 'Без защиты') ? 'OPEN' : state.wifiData.networkType
+    if (state.wifiData.networkName || state.wifiData.networkPassword || state.wifiData.networkType) {
+      wifi = 'WIFI:S:' + name + ';T:' + type + ';P:' + password + ';;'
+    }
+    return wifi
+  },
+  get_link: state => state.linkData
 }
 
 const mutations = {
@@ -89,7 +109,11 @@ const mutations = {
   set_vcard_link: (state, payload) => { state.vcardData.vCardLink = payload },
   set_vcard_practice: (state, payload) => { state.vcardData.vCardPractice = payload },
   set_vcard_note: (state, payload) => { state.vcardData.vCardNote = payload },
-  set_geo: (state, payload) => { state.geoData = payload }
+  set_geo: (state, payload) => { state.geoData = payload },
+  set_wifi_name: (state, payload) => { state.wifiData.networkName = payload },
+  set_wifi_password: (state, payload) => { state.wifiData.networkPassword = payload },
+  set_wifi_type: (state, payload) => { state.wifiData.networkType = payload },
+  set_link: (state, payload) => { state.linkData = payload }
 }
 
 const actions = {

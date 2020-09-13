@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="q-mb-md">
     <div class="row justify-start items-center content-center">
       <q-icon name="fas fa-map-marked-alt" size="sm" color="grey-9" />
-      <div class="text-h5 q-ml-sm">Географические координаты</div>
+      <div class="text-h5 q-ml-sm gt-xs">Географические координаты</div>
+      <div class="text-h5 q-ml-sm lt-sm">Координаты</div>
       <q-space />
       <q-btn flat round icon="close" @click="resetMap" />
     </div>
