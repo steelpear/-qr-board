@@ -359,9 +359,9 @@ export default {
       } else if (this.qrTab === 'skype') {
         return this.$store.getters['board/get_skype']
       } else if (this.qrTab === 'telegram') {
-        return this.$store.getters['board/get_vcard']
+        return this.$store.getters['board/get_telegram']
       } else if (this.qrTab === 'youtube') {
-        return this.$store.getters['board/get_vcard']
+        return this.$store.getters['board/get_youtube']
       } else {
         return false
       }

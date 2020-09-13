@@ -31,7 +31,10 @@ const state = {
   whatsAppPhone: '',
   whatsAppMessage: '',
   skypeData: '',
-  skypeMode: 1
+  skypeMode: 1,
+  telegramData: '',
+  youtubeData: '',
+  youtubeMode: 1
 }
 
 const getters = {
@@ -105,6 +108,19 @@ const getters = {
     let skype = ''
     if (state.skypeData && state.skypeMode === 1) { skype = 'skype:' + state.skypeData + '?call' } else if (state.skypeData && state.skypeMode === 2) { skype = 'skype:' + state.skypeData + '?chat' } else { skype = '' }
     return skype
+  },
+  get_telegram_data: state => state.telegramData,
+  get_telegram: (state) => {
+    let telegram = ''
+    if (state.telegramData) { telegram = 'https://t.me/' + state.telegramData }
+    return telegram
+  },
+  get_youtube_data: state => state.youtubeData,
+  get_youtube_mode: state => state.youtubeMode,
+  get_youtube: (state) => {
+    let youtube = ''
+    if (state.youtubeData && state.youtubeMode === 1) { youtube = 'https://www.youtube.com/watch?v=' + state.youtubeData } else if (state.youtubeData && state.youtubeMode === 2) { youtube = 'https://www.youtube.com/user/' + state.youtubeData } else { youtube = '' }
+    return youtube
   }
 }
 
@@ -135,7 +151,10 @@ const mutations = {
   set_whatsapp_phone: (state, payload) => { state.whatsAppPhone = payload },
   set_whatsapp_message: (state, payload) => { state.whatsAppMessage = payload },
   set_skype_data: (state, payload) => { state.skypeData = payload },
-  set_skype_mode: (state, payload) => { state.skypeMode = payload }
+  set_skype_mode: (state, payload) => { state.skypeMode = payload },
+  set_telegram_data: (state, payload) => { state.telegramData = payload },
+  set_youtube_data: (state, payload) => { state.youtubeData = payload },
+  set_youtube_mode: (state, payload) => { state.youtubeMode = payload }
 }
 
 const actions = {
