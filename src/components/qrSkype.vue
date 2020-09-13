@@ -5,8 +5,8 @@
       <div class="text-h5 q-ml-sm">Skype ({{ modeTitle }})</div>
     </div>
     <q-separator class="q-mb-lg q-mt-xs" />
-    <div class="q-gutter-sm row items-baseline">
-      <div class="col">
+    <div :class="{ 'row wrap items-baseline' : $q.screen.gt.xs }">
+      <div class="col-12 col-md q-mb-sm">
         <q-input
             v-model="skypeAccount"
             label="Аккаунт Skype"
@@ -19,8 +19,10 @@
           </template>
           </q-input>
       </div>
-      <q-btn flat round icon="fas fa-mobile-alt" size="lg" :color="buttonToggle === 1 ? 'indigo' : 'grey-9'" @click="mode('call')" />
-      <q-btn flat round icon="far fa-comment-alt" size="lg" :color="buttonToggle === 2 ? 'indigo' : 'grey-9'" @click="mode('chat')" />
+      <div class="q-ml-xs" :class="{ 'fit text-right' : $q.screen.lt.md }">
+        <q-btn flat round icon="fas fa-mobile-alt" size="lg" :color="buttonToggle === 1 ? 'indigo' : 'grey-9'" @click="mode('call')" />
+        <q-btn flat round icon="far fa-comment-alt" size="lg" :color="buttonToggle === 2 ? 'indigo' : 'grey-9'" @click="mode('chat')" />
+      </div>
     </div>
   </div>
 </template>
