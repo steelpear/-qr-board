@@ -27,7 +27,11 @@ const state = {
     networkPassword: '',
     networkType: 'WPA/WPA2'
   },
-  linkData: ''
+  linkData: '',
+  whatsAppPhone: '',
+  whatsAppMessage: '',
+  skypeData: '',
+  skypeMode: 1
 }
 
 const getters = {
@@ -87,7 +91,21 @@ const getters = {
     }
     return wifi
   },
-  get_link: state => state.linkData
+  get_link: state => state.linkData,
+  get_whatsapp_phone: state => state.whatsAppPhone,
+  get_whatsapp_message: state => state.whatsAppMessage,
+  get_whatsapp: (state) => {
+    let mess = ''
+    if (state.whatsAppPhone || state.whatsAppMessage) { mess = 'https://wa.me/' + state.whatsAppPhone + '?text=' + state.whatsAppMessage }
+    return mess
+  },
+  get_skype_data: state => state.skypeData,
+  get_skype_mode: state => state.skypeMode,
+  get_skype: (state) => {
+    let skype = ''
+    if (state.skypeData && state.skypeMode === 1) { skype = 'skype:' + state.skypeData + '?call' } else if (state.skypeData && state.skypeMode === 2) { skype = 'skype:' + state.skypeData + '?chat' } else { skype = '' }
+    return skype
+  }
 }
 
 const mutations = {
@@ -113,7 +131,11 @@ const mutations = {
   set_wifi_name: (state, payload) => { state.wifiData.networkName = payload },
   set_wifi_password: (state, payload) => { state.wifiData.networkPassword = payload },
   set_wifi_type: (state, payload) => { state.wifiData.networkType = payload },
-  set_link: (state, payload) => { state.linkData = payload }
+  set_link: (state, payload) => { state.linkData = payload },
+  set_whatsapp_phone: (state, payload) => { state.whatsAppPhone = payload },
+  set_whatsapp_message: (state, payload) => { state.whatsAppMessage = payload },
+  set_skype_data: (state, payload) => { state.skypeData = payload },
+  set_skype_mode: (state, payload) => { state.skypeMode = payload }
 }
 
 const actions = {

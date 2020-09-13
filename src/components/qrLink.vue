@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="q-mb-md">
     <div class="row justify-start items-center content-center">
       <q-icon name="fas fa-link" size="sm" color="grey-9" />
       <div class="text-h5 q-ml-sm">Ссылка</div>
