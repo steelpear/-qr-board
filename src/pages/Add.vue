@@ -96,7 +96,7 @@
                 Раскрасить
               </q-tooltip>
             </q-btn>
-            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg" @click="settings.switchReCAPTCHA && $q.screen.gt.sm ? recaptchaDialog = true : publicQr()">
+            <q-btn round color="indigo" glossy icon="far fa-eye" size="lg" @click="settings.switchReCAPTCHA ? recaptchaDialog = true : publicQr()">
               <q-tooltip content-class="bg-indigo" content-style="font-size: 15px;" anchor="top middle" self="bottom middle">
                 Опубликовать
               </q-tooltip>
@@ -166,7 +166,7 @@
       <q-card>
         <q-card-section class="row items-center q-pb-none">
           <q-icon name="fas fa-robot" size="md" color="red" />
-          <div class="text-h6 q-ml-lg">Вы не робот?</div>
+          <div class="text-h6 text-center q-ml-lg">Вы не робот?</div>
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
@@ -291,7 +291,7 @@ export default {
       const dataURL = canvas.toDataURL('image/jpeg', 1)
       const link = document.createElement('a')
       link.href = dataURL
-      link.download = 'qr-board.jpg'
+      link.download = 'qr-board.ru.jpg'
       link.click()
     },
     getRandomInt: function (min, max) {
@@ -347,21 +347,21 @@ export default {
       } else if (this.qrTab === 'text') {
         return this.$store.getters['board/GET_TEXT']
       } else if (this.qrTab === 'card') {
-        return this.$store.getters.get_vcard
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'map') {
-        return this.$store.getters.get_geo_data
+        return this.$store.getters['board/get_geo_data']
       } else if (this.qrTab === 'wifi') {
-        return this.$store.getters.get_wifi
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'link') {
-        return this.$store.getters.get_link
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'whatsapp') {
-        return this.$store.getters.get_whatsapp
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'skype') {
-        return this.$store.getters.get_skype
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'telegram') {
-        return this.$store.getters.get_telegram
+        return this.$store.getters['board/get_vcard']
       } else if (this.qrTab === 'youtube') {
-        return this.$store.getters.get_youtube
+        return this.$store.getters['board/get_vcard']
       } else {
         return false
       }
