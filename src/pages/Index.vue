@@ -20,28 +20,48 @@
     </q-infinite-scroll>
 
     <q-dialog v-model="showQrDialog" square>
-      <q-card style="width:350px; max-width:350px;">
-        <q-card-section class="q-pa-none" vertical>
+      <q-card class="cursor-pointer" style="width:350px; max-width:350px;" @mouseover="active=true" @mouseleave="active=false">
+        <q-card-section class="q-pa-none">
           <q-img :src="qrImgDialogSrc"/>
-          <q-separator />
-          <q-card-actions align="center" horizontal>
-            <ShareNetwork
-              v-for="network in networks"
-              :network="network.network"
-              :key="network.network"
-              :style="{color: network.color}"
-              :url="sharing.url"
-              :title="sharing.title"
-              :description="sharing.description"
-              :quote="sharing.quote"
-              :hashtags="sharing.hashtags"
-              :twitterUser="sharing.twitterUser"
-            >
-              <q-icon :name="network.icon" size="sm" class="cursor-pointer q-mx-xs" />
-            </ShareNetwork>
-            <q-icon name="fas fa-link" color="indigo" size="sm" class="cursor-pointer q-ml-sm" @click="copyClipboard" />
-            <!-- <q-icon name="fas fa-download" color="indigo" size="sm" class="cursor-pointer q-ml-sm" @click="saveImg" /> -->
-          </q-card-actions>
+          <transition
+            appear
+            enter-active-class="animated fadeIn"
+            leave-active-class="animated fadeOut"
+          >
+          <q-btn
+            v-if="active"
+            fab
+            glossy
+            color="orange"
+            icon="share"
+            class="absolute shadow-24"
+            :style="btnStyle"
+            @click="bottSheet=true"
+          />
+          </transition>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+     <q-dialog v-model="bottSheet" position="bottom" square>
+      <q-card style="width: 350px">
+        <q-card-section class="row items-center justify-center no-wrap">
+          <ShareNetwork
+            v-for="network in networks"
+            :network="network.network"
+            :key="network.network"
+            :style="{color: network.color}"
+            :url="qrId"
+            :title="sharing.title"
+            :description="sharing.description"
+            :quote="sharing.quote"
+            :hashtags="sharing.hashtags"
+            :twitterUser="sharing.twitterUser"
+          >
+            <q-icon :name="network.icon" size="sm" class="cursor-pointer q-mr-sm" />
+          </ShareNetwork>
+          <q-icon name="fas fa-link" color="indigo" size="sm" class="cursor-pointer q-ml-xs" @click="copyClipboard" />
+          <q-icon name="save_alt" color="green-10" size="md" class="cursor-pointer q-ml-sm" @click="saveImg" />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -56,21 +76,30 @@ import { copyToClipboard } from 'quasar'
 export default {
   name: 'PageIndex',
   data: () => ({
+    btnStyle: {
+      top: '50%',
+      left: '50%',
+      transform: 'translateY(-50%) translateX(-50%)',
+      transition: 'all .3s'
+    },
+    active: false,
+    bottSheet: false,
     qrItems: [],
     showQrDialog: false,
     qrImgDialogSrc: '',
     qrId: '',
+    id: '',
     timeOut: 0,
     routeProps: {
       limit: 50,
       skip: 0
     },
     sharing: {
-      url: '/',
+      url: process.env.VUE_APP_SERVER,
       title: 'QR-Board',
       description: 'QR-Board - доска объявлений',
       quote: 'Доска объявлений в формате QR-кода',
-      hashtags: 'qr-code,free,generator',
+      hashtags: 'qrcode,free,generator',
       twitterUser: 'steelpear'
     },
     networks: [
@@ -102,6 +131,7 @@ export default {
     },
     showQrImgLarge (src, id) {
       this.qrImgDialogSrc = src
+      this.id = id
       this.qrId = process.env.VUE_APP_URL + '/?id=' + id
       this.showQrDialog = true
     },
@@ -128,6 +158,12 @@ export default {
         this.$q.loading.hide()
         this.timer = undefined
       }, 500)
+    },
+    saveImg () {
+      const link = document.createElement('a')
+      link.href = this.qrImgDialogSrc
+      link.download = 'qr-board.ru_' + this.id + '.png'
+      link.click()
     }
   },
   mounted () {
@@ -138,7 +174,8 @@ export default {
       axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
       })
         .then(response => {
-          this.qrId = response.data.qrId
+          this.id = response.data.qrId
+          this.qrId = process.env.VUE_APP_URL + '/?id=' + response.data.qrId
           this.qrImgDialogSrc = response.data.qrImgSrc
           this.showQrDialog = true
         })

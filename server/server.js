@@ -15,15 +15,15 @@ app.listen(app.get('port'), () => {
 })
 
 fs.readFile('dbconnect.config', 'utf8', (err, data) => {
-  if(err) console.log(err)
-  mongoose.connect(data, { useNewUrlParser: true,  useUnifiedTopology: true }).then(
+  if (err) console.log(err)
+  mongoose.connect(data, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => { console.log('[OK] DB is connected') },
     err => { console.error(err) }
   )
 })
 
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use('/api/records', require('./routes/records'))
 app.use('/api/settings', require('./routes/settings'))

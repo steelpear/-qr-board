@@ -59,7 +59,7 @@ module.exports = function (ctx) {
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
-      // showProgress: false,
+      // showProgress: true,
       // gzip: true,
       // analyze: true,
 

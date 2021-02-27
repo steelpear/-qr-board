@@ -312,6 +312,18 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      if (this.$store.getters['board/GET_SETTINGS'].switchNoticeMail) {
+        axios.post(process.env.VUE_APP_SERVER + '/api/records/mailer', {
+          email: this.$store.getters['board/GET_SETTINGS'].noticeMail,
+          qrId: id
+        })
+          .then(response => {
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
     recaptchaOk () {
       this.publicQr()
