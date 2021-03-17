@@ -7,7 +7,7 @@
             :src="qrItem.qrImgSrc"
             spinner-color="indigo"
             class="cursor-pointer shadow-5 my-hover-shadow"
-            style="height: 190px; width: 190px;"
+            style="height: 190px; width: 190px; border-radius: 28px 0;"
             @click = "showQrImgLarge(qrItem.qrImgSrc,qrItem.qrId)"
           />
         </div>
@@ -61,7 +61,7 @@
             <q-icon :name="network.icon" size="sm" class="cursor-pointer q-mr-sm" />
           </ShareNetwork>
           <q-icon name="fas fa-link" color="indigo" size="sm" class="cursor-pointer q-ml-xs" @click="copyClipboard" />
-          <q-icon name="save_alt" color="green-10" size="md" class="cursor-pointer q-ml-sm" @click="saveImg" />
+          <q-icon name="fas fa-download" color="blue-9" size="25px" class="cursor-pointer q-ml-sm" @click="saveImg" />
         </q-card-section>
       </q-card>
     </q-dialog>

@@ -26,9 +26,9 @@
         </q-tooltip>
         </q-icon>
         <q-space class="gt-xs" />
-        <q-input class="gt-sm" color="indigo" outlined rounded v-model="qrSearch" label="Поиск" dense clearable clear-icon="close" style="max-width: 213px" mask="aa######">
+        <q-input class="gt-sm search" color="grey-8" outlined rounded v-model="qrSearch" dense clearable clear-icon="close" mask="aa######">
           <template v-slot:prepend>
-            <q-icon name="search" />
+            <q-icon name="search" size="md" />
           </template>
         </q-input>
         <q-btn class="lt-md" flat round icon="search" size="xl" padding="sm" @click="searchDialog = true" />
@@ -117,7 +117,7 @@
             <q-icon :name="network.icon" size="sm" class="cursor-pointer q-mr-sm" />
           </ShareNetwork>
           <q-icon name="fas fa-link" color="indigo" size="sm" class="cursor-pointer q-ml-xs" @click="copyClipboard" />
-          <q-icon name="save_alt" color="green-10" size="md" class="cursor-pointer q-ml-sm" @click="saveImg" />
+          <q-icon name="fas fa-download" color="blue-9" size="25px" class="cursor-pointer q-ml-sm" @click="saveImg" />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -283,11 +283,16 @@ export default {
       transform: rotate(720deg);
     }
   }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
-.q-fab--opened .q-fab__actions {margin-left: 3px;}
+  .search {
+    max-width: 213px;
+    border: 3px solid;
+    border-radius: 28px;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  .q-fab--opened .q-fab__actions {margin-left: 3px;}
 </style>

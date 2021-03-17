@@ -98,7 +98,7 @@
     </div>
     <q-separator class="q-my-lg" />
     <div v-if="settings && settings.switchDonate">
-      <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поблагодарить разработчика - Вы можете либо сделать небольшое добровольное пожертвование на развитие проекта путём перечисления на кошелёк Яндекс.Денег <a class="text-bold" :href="'https://money.yandex.ru/to/' + settings.yandexMoney" target="_blank">{{ settings.yandexMoney }}</a>, либо поделиться информацией об этом сайте в социальных сетях. Либо и то и другое) Спасибо.</p>
+      <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поблагодарить разработчика - Вы можете либо сделать небольшое добровольное пожертвование на развитие проекта путём перечисления на кошелёк <span class="text-bold">ЮMoney </span><a class="text-bold" :href="'https://yoomoney.ru/to/' + settings.yandexMoney" target="_blank">{{ settings.yandexMoney }}</a>, либо поделиться информацией об этом сайте в социальных сетях. Либо и то и другое) Спасибо.</p>
     </div>
   </div>
 </template>
