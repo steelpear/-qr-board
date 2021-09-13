@@ -51,7 +51,7 @@
       <div class="col">
         <q-input
           v-model="settings.yandexMoney"
-          label="Яндекс-кошелёк"
+          label="Кошелёк ЮMoney"
           outlined
           dark
           clearable

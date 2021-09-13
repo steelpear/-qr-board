@@ -47,7 +47,7 @@ module.exports = function (ctx) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         VUE_APP_URL: ctx.dev ? 'http://localhost:8080' : 'https://qr-board.ru',
-        VUE_APP_SERVER: ctx.dev ? 'http://localhost:3000' : 'https://qr-board.ru:3000'
+        VUE_APP_SERVER: ctx.dev ? 'http://localhost:3001' : 'https://qr-board.ru:3001'
       },
 
       // transpile: false,

@@ -75,53 +75,6 @@
 
   </q-layout>
 
-    <q-dialog v-model="showQrDialog" square>
-      <q-card class="cursor-pointer" style="width:350px; max-width:350px;" @mouseover="active=true" @mouseleave="active=false">
-        <q-card-section class="q-pa-none">
-          <q-img :src="qrImgDialogSrc"/>
-          <transition
-            appear
-            enter-active-class="animated fadeIn"
-            leave-active-class="animated fadeOut"
-          >
-          <q-btn
-            v-if="active"
-            fab
-            glossy
-            color="orange"
-            icon="share"
-            class="absolute shadow-24"
-            :style="btnStyle"
-            @click="bottSheet=true"
-          />
-          </transition>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-
-     <q-dialog v-model="bottSheet" position="bottom" square>
-      <q-card style="width: 350px">
-        <q-card-section class="row items-center justify-center no-wrap">
-          <ShareNetwork
-            v-for="network in networks"
-            :network="network.network"
-            :key="network.network"
-            :style="{color: network.color}"
-            :url="qrId"
-            :title="sharing.title"
-            :description="sharing.description"
-            :quote="sharing.quote"
-            :hashtags="sharing.hashtags"
-            :twitterUser="sharing.twitterUser"
-          >
-            <q-icon :name="network.icon" size="sm" class="cursor-pointer q-mr-sm" />
-          </ShareNetwork>
-          <q-icon name="fas fa-link" color="indigo" size="sm" class="cursor-pointer q-ml-xs" @click="copyClipboard" />
-          <q-icon name="fas fa-download" color="blue-9" size="25px" class="cursor-pointer q-ml-sm" @click="saveImg" />
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-
 <q-dialog v-model="bottomSheet" position="bottom" full-width square>
   <q-card>
     <q-card-section class="q-pa-md row items-center content-center" :class="$q.screen.gt.sm ? 'justify-between' : 'justify-center'">
@@ -159,28 +112,23 @@
   </q-card>
 </q-dialog>
 
+<qr-dialog :show="showQrDialog" :img="qrImgDialogSrc" :url="qrId" :id="id" />
+
 </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import VueSocialSharing from 'vue-social-sharing'
-import { copyToClipboard } from 'quasar'
+import qrDialog from '../components/qrDialog.vue'
 import axios from 'axios'
 Vue.use(VueSocialSharing)
 
 export default {
+  components: { qrDialog },
   data () {
     return {
-      btnStyle: {
-        top: '50%',
-        left: '50%',
-        transform: 'translateY(-50%) translateX(-50%)',
-        transition: 'all .3s'
-      },
-      active: false,
       bottomSheet: true,
-      bottSheet: false,
       errorDialog: false,
       searchDialog: false,
       qrSearch: '',
@@ -221,27 +169,6 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    },
-    copyClipboard () {
-      copyToClipboard(this.qrId)
-        .then(() => {
-          this.$q.notify({
-            type: 'positive',
-            position: 'top',
-            message: 'Ссылка скопирована',
-            timeout: 2500,
-            actions: [{ icon: 'close', color: 'white' }]
-          })
-        })
-        .catch(() => {
-          console.log('Error copyng to clipboard!')
-        })
-    },
-    saveImg () {
-      const link = document.createElement('a')
-      link.href = this.qrImgDialogSrc
-      link.download = 'qr-board.ru_' + this.id + '.png'
-      link.click()
     }
   },
   watch: {

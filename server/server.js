@@ -8,7 +8,7 @@ const app = express()
 
 app.use(cors())
 
-app.set('port', 3000)
+app.set('port', 3001)
 
 app.listen(app.get('port'), () => {
   console.log(`[OK] Server is running on localhost:${app.get('port')}`)

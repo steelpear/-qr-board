@@ -90,15 +90,28 @@
     <div class="text-center text-h4 q-my-lg">Контакты и прочее</div>
     <div class="row justify-center items-center content-center q-mt-lg">
       <q-icon name="fas fa-at" size="md" color="grey-9" class="q-mr-sm gt-sm" />
-      <div v-if="settings" class="col text-grey-9 text-h5"><a :href="'mailto:' + settings.adminMail" target="_blank">{{ settings.adminMail }}</a> - для связи с разработчиком.</div>
+      <div v-if="settings" class="col text-grey-9 text-h5"><a :href="'mailto:' + settings.adminMail" target="_blank">{{ settings.adminMail }}</a> - для пожеланий и предложений.</div>
     </div>
     <div class="row justify-center items-center content-center q-mt-md">
       <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
       <div class="col text-grey-9 text-h5"><a href="https://qr-generator.ru/" target="_blank">QR-Generator</a> - бесплатный генератор QR-кодов.</div>
     </div>
     <q-separator class="q-my-lg" />
-    <div v-if="settings && settings.switchDonate">
-      <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поблагодарить разработчика - Вы можете либо сделать небольшое добровольное пожертвование на развитие проекта путём перечисления на кошелёк <span class="text-bold">ЮMoney </span><a class="text-bold" :href="'https://yoomoney.ru/to/' + settings.yandexMoney" target="_blank">{{ settings.yandexMoney }}</a>, либо поделиться информацией об этом сайте в социальных сетях. Либо и то и другое) Спасибо.</p>
+    <div v-if="settings && settings.switchDonate" class="row" :class="{'q-gutter-lg justify-between' : $q.screen.gt.sm}">
+      <div class="col-12 col-md-6">
+        <p class="text-grey-9 text-justify" style="font-size: 18px;"><span class="text-bold">QR-Board</span> совершенно бесплатна, но если у Вас появилось желание поддержать проект - Вы можете либо сделать небольшое добровольное пожертвование на развитие сайта (оплату хостинга, доменного имени и др.) либо поделиться информацией о нём со своими друзьями в социальных сетях.</p>
+        <p class="text-grey-9 text-right" style="font-size: 18px;">Либо и то и другое) Спасибо.</p>
+      </div>
+      <div class="col-12 col-md-5">
+        <iframe
+          src="https://yoomoney.ru/quickpay/shop-widget?writer=seller&targets=%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D0%B2%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5&targets-hint=&default-sum=100&button-text=12&payment-type-choice=on&mobile-payment-type-choice=on&hint=&successURL=&quickpay=shop&account=410011206433601"
+          width="100%"
+          height="270"
+          frameborder="0"
+          allowtransparency="true"
+          scrolling="no"
+        />
+      </div>
     </div>
   </div>
 </template>
