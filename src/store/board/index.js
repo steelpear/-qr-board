@@ -1,6 +1,16 @@
 const state = {
   password: '',
-  settings: null,
+  settings: {
+    switchNoticeMail: true,
+    switchCookie: true,
+    switchReCAPTCHA: true,
+    switchDonate: true,
+    YandexMapkey: '',
+    ReCAPTCHAkey: '',
+    noticeMail: '',
+    adminMail: '',
+    yandexMoney: ''
+  },
   qrTab: 'sms',
   smsData: {
     smsPhone: '',

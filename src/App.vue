@@ -7,7 +7,7 @@
 import axios from 'axios'
 export default {
   name: 'App',
-  mounted () {
+  created () {
     axios.get(process.env.VUE_APP_SERVER + '/api/settings', {
     })
       .then(response => {
