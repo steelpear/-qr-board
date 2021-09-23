@@ -3,7 +3,7 @@
     <q-dialog v-model="show" square>
       <q-card class="cursor-pointer" style="width:350px; max-width:350px;" @mouseover="active=true" @mouseleave="active=false">
         <q-card-section class="q-pa-none">
-          <q-img :src="img"/>
+          <q-img ref="canvas" :src="img" />
           <transition
             appear
             enter-active-class="animated fadeIn"
@@ -106,7 +106,7 @@ export default {
     },
     saveImg (id) {
       const link = document.createElement('a')
-      link.href = this.qrImgDialogSrc
+      link.href = this.$refs.canvas.src
       link.download = 'qr-board.ru_' + id + '.png'
       link.click()
     }

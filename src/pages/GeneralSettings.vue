@@ -81,14 +81,16 @@ export default {
   name: 'PageGeneralSettings',
   data () {
     return {
-      settings: {}
+      //
     }
   },
-  mounted () {
-    this.settings = this.$store.getters['board/GET_SETTINGS']
+  computed: {
+    settings: {
+      get () { return this.$store.getters['board/GET_SETTINGS'] }
+    }
   },
   methods: {
-    saveSettings: function () {
+    saveSettings () {
       axios.put(process.env.VUE_APP_SERVER + '/api/settings', this.settings)
         .then(response => {
           this.$q.notify({
