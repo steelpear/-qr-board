@@ -77,7 +77,7 @@ export default {
         description: 'QR-Board - доска объявлений',
         quote: 'Доска объявлений в формате QR-кода',
         hashtags: 'qrcode,free,generator',
-        twitterUser: 'steelpear'
+        twitterUser: ''
       },
       networks: [
         { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
