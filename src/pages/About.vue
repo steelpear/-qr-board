@@ -96,6 +96,10 @@
       <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
       <div class="col text-grey-9 text-h5"><a href="https://qr-generator.ru/" target="_blank">QR-Generator</a> - бесплатный генератор QR-кодов.</div>
     </div>
+    <div class="row justify-center items-center content-center q-mt-md">
+      <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
+      <div class="col text-grey-9 text-h5"><a href="https://all-letters.ru/" target="_blank">Письма</a> - письма, поздравления и благодарности с добрыми словами и картинками.</div>
+    </div>
     <q-separator class="q-my-lg" />
     <div v-if="settings && settings.switchDonate" class="row" :class="{'q-gutter-lg justify-between' : $q.screen.gt.sm}">
       <div class="col-12 col-md-6">
