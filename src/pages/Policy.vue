@@ -53,6 +53,10 @@
 
 <script>
 export default {
+  meta: {
+    title: 'Политика конфиденциальности',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PagePolicy',
   methods: {
     showLoading () {

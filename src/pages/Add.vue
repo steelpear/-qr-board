@@ -225,6 +225,10 @@ import qrYoutube from '../components/qrYoutube.vue'
 import VueRecaptcha from 'vue-recaptcha'
 
 export default {
+  meta: {
+    title: 'Добавить объявление',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PageAdd',
   components: {
     qrSms,

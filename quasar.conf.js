@@ -19,7 +19,6 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
-
       'axios'
     ],
 
@@ -37,7 +36,6 @@ module.exports = function (ctx) {
       // 'themify',
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
       'roboto-font', // optional, you are not bound to it
       'material-icons' // optional, you are not bound to it
     ],
@@ -105,9 +103,11 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'Cookies',
-        'Loading'
+        'Loading',
+        'Meta'
       ],
-      config: { // }
+      config: {
+        //
       }
     },
 
@@ -191,7 +191,6 @@ module.exports = function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         appId: 'board'
       },
 

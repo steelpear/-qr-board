@@ -27,15 +27,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-    }
+  name: 'Error404',
+  meta: {
+    title: 'Страница не существует',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
   }
-}
-</script>
-
-<script>
-export default {
-  name: 'Error404'
 }
 </script>

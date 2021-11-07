@@ -122,6 +122,10 @@
 
 <script>
 export default {
+  meta: {
+    title: 'Информация',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PageAbout',
   computed: {
     layout () {

@@ -29,6 +29,10 @@ import axios from 'axios'
 import qrDialog from '../components/qrDialog.vue'
 
 export default {
+  meta: {
+    title: 'Главная',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PageIndex',
   components: { qrDialog },
   data: () => ({

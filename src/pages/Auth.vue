@@ -42,6 +42,10 @@
 <script>
 import axios from 'axios'
 export default {
+  meta: {
+    title: 'Настройки авторизации',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PageAuth',
   data () {
     return {

@@ -78,12 +78,11 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'PageGeneralSettings',
-  data () {
-    return {
-      //
-    }
+  meta: {
+    title: 'Общие настройки',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
   },
+  name: 'PageGeneralSettings',
   computed: {
     settings: {
       get () { return this.$store.getters['board/GET_SETTINGS'] }

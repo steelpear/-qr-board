@@ -55,6 +55,10 @@
 <script>
 import axios from 'axios'
 export default {
+  meta: {
+    title: 'Вход в панель управления',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   data () {
     return {
       login: '',

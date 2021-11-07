@@ -62,6 +62,10 @@
 import axios from 'axios'
 
 export default {
+  meta: {
+    title: 'Список объявлений',
+    titleTemplate: title => `${title} - QR-Board - доска объявлений`
+  },
   name: 'PageAds',
   data () {
     return {
