@@ -19,28 +19,18 @@
       </template>
     </q-infinite-scroll>
 
-  <qr-dialog :show="showQrDialog" :img="qrImgDialogSrc" :url="qrId" :id="id" />
-
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import qrDialog from '../components/qrDialog.vue'
-
 export default {
   meta: {
     title: 'Главная',
     titleTemplate: title => `${title} - QR-Board - доска объявлений`
   },
   name: 'PageIndex',
-  components: { qrDialog },
   data: () => ({
     qrItems: [],
-    showQrDialog: false,
-    qrImgDialogSrc: '',
-    qrId: '',
-    id: '',
     timeOut: 0,
     routeProps: {
       limit: 50,
@@ -50,7 +40,7 @@ export default {
   methods: {
     fetchData (index, done) {
       setTimeout(() => {
-        axios.get(process.env.VUE_APP_SERVER + '/api/records/limit/' + this.routeProps.limit + '/' + this.routeProps.skip, {
+        this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/limit/' + this.routeProps.limit + '/' + this.routeProps.skip, {
         })
           .then(response => {
             const array = response.data
@@ -67,10 +57,13 @@ export default {
       }, this.timeOut)
     },
     showQrImgLarge (src, id) {
-      this.qrImgDialogSrc = src
-      this.id = id
-      this.qrId = process.env.VUE_APP_URL + '/?id=' + id
-      this.showQrDialog = true
+      const vals = {
+        qrImgDialogSrc: src,
+        id: id,
+        qrId: process.env.VUE_APP_URL + '/?id=' + id,
+        showQrDialog: true
+      }
+      this.$store.dispatch('board/set_qrDialogAct', vals)
     },
     showLoading () {
       this.$q.loading.show({
@@ -87,13 +80,16 @@ export default {
     this.showLoading()
     this.fetchData()
     if (this.$route.query.id) {
-      axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
+      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
       })
         .then(response => {
-          this.id = response.data.qrId
-          this.qrId = process.env.VUE_APP_URL + '/?id=' + response.data.qrId
-          this.qrImgDialogSrc = response.data.qrImgSrc
-          this.showQrDialog = true
+          const vals = {
+            qrImgDialogSrc: response.data.qrImgSrc,
+            id: response.data.qrId,
+            qrId: process.env.VUE_APP_URL + '/?id=' + response.data.qrId,
+            showQrDialog: true
+          }
+          this.$store.dispatch('board/set_qrDialogAct', vals)
         })
         .catch(error => {
           console.log(error)

@@ -53,21 +53,18 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   meta: {
     title: 'Вход в панель управления',
     titleTemplate: title => `${title} - QR-Board - доска объявлений`
   },
-  data () {
-    return {
-      login: '',
-      password: ''
-    }
-  },
+  data: () => ({
+    login: '',
+    password: ''
+  }),
   methods: {
     goLogin () {
-      axios.post(process.env.VUE_APP_SERVER + '/api/login', {
+      this.$axios.post(process.env.VUE_APP_SERVER + '/api/login', {
         login: this.login,
         password: this.password
       })

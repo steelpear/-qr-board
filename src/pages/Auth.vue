@@ -40,21 +40,18 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   meta: {
     title: 'Настройки авторизации',
     titleTemplate: title => `${title} - QR-Board - доска объявлений`
   },
   name: 'PageAuth',
-  data () {
-    return {
-      login: '',
-      password: ''
-    }
-  },
+  data: () => ({
+    login: '',
+    password: ''
+  }),
   mounted () {
-    axios.get(process.env.VUE_APP_SERVER + '/api/login', {
+    this.$axios.get(process.env.VUE_APP_SERVER + '/api/login', {
     })
       .then(response => {
         this.login = response.data[0].login
@@ -65,8 +62,8 @@ export default {
       })
   },
   methods: {
-    saveSettings: function () {
-      axios.put(process.env.VUE_APP_SERVER + '/api/login', {
+    saveSettings () {
+      this.$axios.put(process.env.VUE_APP_SERVER + '/api/login', {
         login: this.login,
         password: this.password
       })

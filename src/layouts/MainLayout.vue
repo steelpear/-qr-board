@@ -112,7 +112,12 @@
   </q-card>
 </q-dialog>
 
-<qr-dialog :show="showQrDialog" :img="qrImgDialogSrc" :url="qrId" :id="id" />
+<qr-dialog
+  :show="dialogProps.showQrDialog"
+  :img="dialogProps.qrImgDialogSrc"
+  :url="dialogProps.qrId"
+  :id="dialogProps.id"
+/>
 
 </div>
 </template>
@@ -121,50 +126,49 @@
 import Vue from 'vue'
 import VueSocialSharing from 'vue-social-sharing'
 import qrDialog from '../components/qrDialog.vue'
-import axios from 'axios'
 Vue.use(VueSocialSharing)
 
 export default {
   components: { qrDialog },
-  data () {
-    return {
-      bottomSheet: true,
-      errorDialog: false,
-      searchDialog: false,
-      qrSearch: '',
-      qrId: '',
-      id: '',
-      qrImgDialogSrc: '',
-      showQrDialog: false,
-      sharing: {
-        url: process.env.VUE_APP_URL,
-        title: 'QR-Board',
-        description: 'QR-Board - доска объявлений',
-        quote: 'Доска объявлений в формате QR-кода',
-        hashtags: 'qrcode,free,generator',
-        twitterUser: 'steelpear'
-      },
-      networks: [
-        { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
-        { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
-        { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
-        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
-        { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
-      ]
-    }
+  data: () => ({
+    bottomSheet: true,
+    errorDialog: false,
+    searchDialog: false,
+    qrSearch: '',
+    sharing: {
+      url: process.env.VUE_APP_URL,
+      title: 'QR-Board',
+      description: 'QR-Board - доска объявлений',
+      quote: 'Доска объявлений в формате QR-кода',
+      hashtags: 'qrcode,free,generator',
+      twitterUser: 'steelpear'
+    },
+    networks: [
+      { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
+      { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
+      { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
+      { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
+      { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
+    ]
+  }),
+  computed: {
+    dialogProps () { return this.$store.getters['board/get_qrDialogVals'] }
   },
   methods: {
     setCookie () {
       this.$q.cookies.set('cookie_assent', 'cookie_session', { expires: '30d' })
     },
-    randomQR: function () {
-      axios.get(process.env.VUE_APP_SERVER + '/api/records/random/' + 1, {
+    randomQR () {
+      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/random/' + 1, {
       })
         .then(response => {
-          this.id = response.data[0].qrId
-          this.qrId = process.env.VUE_APP_URL + '/?id=' + response.data[0].qrId
-          this.qrImgDialogSrc = response.data[0].qrImgSrc
-          this.showQrDialog = true
+          const vals = {
+            qrImgDialogSrc: response.data[0].qrImgSrc,
+            id: response.data[0].qrId,
+            qrId: process.env.VUE_APP_URL + '/?id=' + response.data[0].qrId,
+            showQrDialog: true
+          }
+          this.$store.dispatch('board/set_qrDialogAct', vals)
         })
         .catch(error => {
           console.log(error)
@@ -172,15 +176,18 @@ export default {
     }
   },
   watch: {
-    qrSearch: function (val) {
+    qrSearch (val) {
       if (val && val.length === 8) {
-        axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + val, {
+        this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + val, {
         })
           .then(response => {
-            this.id = response.data.qrId
-            this.qrId = process.env.VUE_APP_URL + '/?id=' + response.data.qrId
-            this.qrImgDialogSrc = response.data.qrImgSrc
-            this.showQrDialog = true
+            const vals = {
+              qrImgDialogSrc: response.data.qrImgSrc,
+              id: response.data.qrId,
+              qrId: process.env.VUE_APP_URL + '/?id=' + response.data.qrId,
+              showQrDialog: true
+            }
+            this.$store.dispatch('board/set_qrDialogAct', vals)
             setTimeout(() => {
               this.qrSearch = ''
             }, 300)

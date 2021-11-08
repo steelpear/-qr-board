@@ -76,18 +76,16 @@
 <script>
 export default {
   name: 'DashboardLayout',
-  data () {
-    return {
-      leftDrawerOpen: false
-    }
-  },
+  data: () => ({
+    leftDrawerOpen: false
+  }),
   created () {
     if (!this.$q.cookies.get('login')) {
       this.$router.push({ path: '/login' })
     }
   },
   methods: {
-    loginOut: function () {
+    loginOut: () => {
       this.$q.cookies.remove('login')
       this.$router.push({ path: '/login' })
     }

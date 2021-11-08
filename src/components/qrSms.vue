@@ -105,18 +105,16 @@
 <script>
 export default {
   name: 'qrSms',
-  data () {
-    return {
-      titleBtn: '',
-      titleIcon: 'fas fa-sms',
-      rules: {
-        email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Неверный e-mail!'
-        }
+  data: () => ({
+    titleBtn: '',
+    titleIcon: 'fas fa-sms',
+    rules: {
+      email: (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Неверный e-mail!'
       }
     }
-  },
+  }),
   methods: {
     mode (e) {
       if (e === 'sms') {

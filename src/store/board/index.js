@@ -44,7 +44,13 @@ const state = {
   skypeMode: 1,
   telegramData: '',
   youtubeData: '',
-  youtubeMode: 1
+  youtubeMode: 1,
+  qrDialogVals: {
+    showQrDialog: false,
+    qrImgDialogSrc: '',
+    qrId: '',
+    id: ''
+  }
 }
 
 const getters = {
@@ -131,20 +137,21 @@ const getters = {
     let youtube = ''
     if (state.youtubeData && state.youtubeMode === 1) { youtube = 'https://www.youtube.com/watch?v=' + state.youtubeData } else if (state.youtubeData && state.youtubeMode === 2) { youtube = 'https://www.youtube.com/user/' + state.youtubeData } else { youtube = '' }
     return youtube
-  }
+  },
+  get_qrDialogVals: state => state.qrDialogVals
 }
 
 const mutations = {
-  SET_PASSWORD (state, payload) { state.password = payload },
-  SET_SETTINGS (state, payload) { state.settings = payload },
-  SET_QRTAB (state, payload) { state.qrTab = payload },
+  SET_PASSWORD: (state, payload) => { state.password = payload },
+  SET_SETTINGS: (state, payload) => { state.settings = payload },
+  SET_QRTAB: (state, payload) => { state.qrTab = payload },
   SET_SMS_PHONE: (state, payload) => { state.smsData.smsPhone = payload },
   SET_SMS_TEXT: (state, payload) => { state.smsData.smsText = payload },
   SET_SMS_EMAIL: (state, payload) => { state.smsData.eMail = payload },
   SET_SMS_EMAIL_SUBJECT: (state, payload) => { state.smsData.emailSubject = payload },
   SET_SMS_EMAIL_MESSAGE: (state, payload) => { state.smsData.emailMessage = payload },
   SET_SMS_TITLE_BTN: (state, payload) => { state.smsData.titleBtn = payload },
-  SET_TEXT (state, payload) { state.textData = payload },
+  SET_TEXT: (state, payload) => { state.textData = payload },
   set_vcard_surname: (state, payload) => { state.vcardData.vCardSurname = payload },
   set_vcard_name: (state, payload) => { state.vcardData.vCardName = payload },
   set_vcard_patronymic: (state, payload) => { state.vcardData.vCardPatronymic = payload },
@@ -164,11 +171,12 @@ const mutations = {
   set_skype_mode: (state, payload) => { state.skypeMode = payload },
   set_telegram_data: (state, payload) => { state.telegramData = payload },
   set_youtube_data: (state, payload) => { state.youtubeData = payload },
-  set_youtube_mode: (state, payload) => { state.youtubeMode = payload }
+  set_youtube_mode: (state, payload) => { state.youtubeMode = payload },
+  set_qrDialogVals: (state, payload) => { state.qrDialogVals = payload }
 }
 
 const actions = {
-  //
+  set_qrDialogAct: ({ commit }, payload) => { commit('set_qrDialogVals', payload) }
 }
 
 export default {

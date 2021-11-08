@@ -209,7 +209,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { copyToClipboard } from 'quasar'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 import qrSms from '../components/qrSms.vue'
@@ -244,31 +243,29 @@ export default {
     qrcode: VueQrcode,
     VueRecaptcha
   },
-  data () {
-    return {
-      tabs: [
-        { name: 'sms', icon: 'fas fa-sms' },
-        { name: 'text', icon: 'fas fa-font' },
-        { name: 'card', icon: 'far fa-address-card' },
-        { name: 'map', icon: 'fas fa-map-marker-alt' },
-        { name: 'wifi', icon: 'fas fa-wifi' },
-        { name: 'link', icon: 'fas fa-link' },
-        { name: 'whatsapp', icon: 'fab fa-whatsapp' },
-        { name: 'skype', icon: 'fab fa-skype' },
-        { name: 'telegram', icon: 'fab fa-telegram-plane' },
-        { name: 'youtube', icon: 'fab fa-youtube' }
-      ],
-      qrWidth: 300,
-      qrFrontColor: '#000000ff',
-      qrBackColor: '#ffffffff',
-      inverse: false,
-      paintMobileDialog: false,
-      recaptchaDialog: false,
-      publicDialog: false,
-      qrId: 'qr123456',
-      customPalette: ['#ffffffff', '#999999', '#7F7F7F', '#666666', '#4C4C4C', '#333333', '#191919', '#20124d', '#4c1130', '#000000ff', '#990000', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47', '#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0', '#cc0000', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79', '#660000', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763']
-    }
-  },
+  data: () => ({
+    tabs: [
+      { name: 'sms', icon: 'fas fa-sms' },
+      { name: 'text', icon: 'fas fa-font' },
+      { name: 'card', icon: 'far fa-address-card' },
+      { name: 'map', icon: 'fas fa-map-marker-alt' },
+      { name: 'wifi', icon: 'fas fa-wifi' },
+      { name: 'link', icon: 'fas fa-link' },
+      { name: 'whatsapp', icon: 'fab fa-whatsapp' },
+      { name: 'skype', icon: 'fab fa-skype' },
+      { name: 'telegram', icon: 'fab fa-telegram-plane' },
+      { name: 'youtube', icon: 'fab fa-youtube' }
+    ],
+    qrWidth: 300,
+    qrFrontColor: '#000000ff',
+    qrBackColor: '#ffffffff',
+    inverse: false,
+    paintMobileDialog: false,
+    recaptchaDialog: false,
+    publicDialog: false,
+    qrId: 'qr123456',
+    customPalette: ['#ffffffff', '#999999', '#7F7F7F', '#666666', '#4C4C4C', '#333333', '#191919', '#20124d', '#4c1130', '#000000ff', '#990000', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47', '#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0', '#cc0000', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79', '#660000', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763']
+  }),
   methods: {
     showLoading () {
       this.$q.loading.show({
@@ -298,13 +295,13 @@ export default {
       link.download = 'qr-board.ru.jpg'
       link.click()
     },
-    getRandomInt: function (min, max) {
+    getRandomInt (min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min)
     },
     publicQr () {
       const imgSrc = this.$refs.canvas.$el.toDataURL()
       const id = 'qr' + this.getRandomInt(100000, 999999)
-      axios.post(process.env.VUE_APP_SERVER + '/api/records', {
+      this.$axios.post(process.env.VUE_APP_SERVER + '/api/records', {
         qrId: id,
         qrImgSrc: imgSrc,
         qrDate: new Date()
@@ -317,7 +314,7 @@ export default {
           console.log(error)
         })
       if (this.$store.getters['board/GET_SETTINGS'].switchNoticeMail) {
-        axios.post(process.env.VUE_APP_SERVER + '/api/records/mailer', {
+        this.$axios.post(process.env.VUE_APP_SERVER + '/api/records/mailer', {
           email: this.$store.getters['board/GET_SETTINGS'].noticeMail,
           qrId: id
         })
@@ -333,7 +330,7 @@ export default {
       this.publicQr()
       this.recaptchaDialog = false
     },
-    showPublicAd: function (qrId) {
+    showPublicAd (qrId) {
       this.$router.push({ path: '/', query: { id: qrId } })
     },
     copyClipboard () {

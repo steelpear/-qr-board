@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-dialog v-model="show" square>
+    <q-dialog v-model="showLocal" square @hide="clearData">
       <q-card class="cursor-pointer" style="width:350px; max-width:350px;" @mouseover="active=true" @mouseleave="active=false">
         <q-card-section class="q-pa-none">
           <q-img ref="canvas" :src="img" />
@@ -61,32 +61,34 @@ export default {
     url: String,
     id: String
   },
-  data () {
-    return {
-      btnStyle: {
-        top: '50%',
-        left: '50%',
-        transform: 'translateY(-50%) translateX(-50%)',
-        transition: 'all .3s'
-      },
-      active: false,
-      bottSheet: false,
-      sharing: {
-        url: process.env.VUE_APP_SERVER,
-        title: 'QR-Board',
-        description: 'QR-Board - доска объявлений',
-        quote: 'Доска объявлений в формате QR-кода',
-        hashtags: 'qrcode,free,generator',
-        twitterUser: ''
-      },
-      networks: [
-        { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
-        { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
-        { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
-        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
-        { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
-      ]
-    }
+  data: () => ({
+    showLocal: this.show,
+    btnStyle: {
+      top: '50%',
+      left: '50%',
+      transform: 'translateY(-50%) translateX(-50%)',
+      transition: 'all .3s'
+    },
+    active: false,
+    bottSheet: false,
+    sharing: {
+      url: process.env.VUE_APP_SERVER,
+      title: 'QR-Board',
+      description: 'QR-Board - доска объявлений',
+      quote: 'Доска объявлений в формате QR-кода',
+      hashtags: 'qrcode,free,generator',
+      twitterUser: ''
+    },
+    networks: [
+      { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
+      { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
+      { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
+      { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
+      { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
+    ]
+  }),
+  watch: {
+    show () { this.showLocal = this.show }
   },
   methods: {
     copyClipboard (url) {
@@ -109,6 +111,15 @@ export default {
       link.href = this.$refs.canvas.src
       link.download = 'qr-board.ru_' + id + '.png'
       link.click()
+    },
+    clearData () {
+      const vals = {
+        qrImgDialogSrc: '',
+        id: '',
+        qrId: '',
+        showQrDialog: false
+      }
+      this.$store.dispatch('board/set_qrDialogAct', vals)
     }
   }
 }

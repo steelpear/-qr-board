@@ -59,61 +59,57 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   meta: {
     title: 'Список объявлений',
     titleTemplate: title => `${title} - QR-Board - доска объявлений`
   },
   name: 'PageAds',
-  data () {
-    return {
-      qrDialog: false,
-      qrImgDialogSrc: '',
-      confirmDialog: false,
-      confirmId: null,
-      confirm_Id: null,
-      filter: '',
-      loading: false,
-      pagination: {
-        sortBy: 'desc',
-        descending: false,
-        page: 1,
-        rowsPerPage: 20
+  data: () => ({
+    qrDialog: false,
+    qrImgDialogSrc: '',
+    confirmDialog: false,
+    confirmId: null,
+    confirm_Id: null,
+    filter: '',
+    loading: false,
+    pagination: {
+      sortBy: 'desc',
+      descending: false,
+      page: 1,
+      rowsPerPage: 20
+    },
+    data: [],
+    columns: [
+      {
+        name: 'number',
+        label: 'Номер объявления',
+        align: 'left',
+        sortable: false,
+        field: 'qrId'
       },
-      data: [],
-      columns: [
-        {
-          name: 'number',
-          label: 'Номер объявления',
-          align: 'left',
-          sortable: false,
-          field: 'qrId'
-        },
-        {
-          name: 'id',
-          label: 'ID записи',
-          align: 'left',
-          sortable: false,
-          field: '_id'
-        },
-        {
-          name: 'date',
-          label: 'Дата публикации',
-          align: 'left',
-          sortable: true,
-          field: 'qrDate'
-        }
-      ]
-    }
-  },
+      {
+        name: 'id',
+        label: 'ID записи',
+        align: 'left',
+        sortable: false,
+        field: '_id'
+      },
+      {
+        name: 'date',
+        label: 'Дата публикации',
+        align: 'left',
+        sortable: true,
+        field: 'qrDate'
+      }
+    ]
+  }),
   mounted () {
     this.getItems()
   },
   methods: {
-    getItems: function () {
-      axios.get(process.env.VUE_APP_SERVER + '/api/records', {
+    getItems () {
+      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records', {
       })
         .then(response => {
           this.data = response.data
@@ -122,9 +118,9 @@ export default {
           console.log(error)
         })
     },
-    deleteItem: function (id) {
+    deleteItem (id) {
       this.confirmDialog = false
-      axios.delete(process.env.VUE_APP_SERVER + '/api/records/delete/' + id, {
+      this.$axios.delete(process.env.VUE_APP_SERVER + '/api/records/delete/' + id, {
       })
         .then(response => {
           console.log(response.data.state)
@@ -134,16 +130,16 @@ export default {
           console.log(error)
         })
     },
-    confirm: function (id, _id) {
+    confirm (id, _id) {
       this.confirmId = id
       this.confirm_Id = _id
       this.confirmDialog = true
     },
-    viewQr: function (src) {
+    viewQr (src) {
       this.qrImgDialogSrc = src
       this.qrDialog = true
     },
-    dateToString: function (dat) {
+    dateToString (dat) {
       const date = new Date(dat)
       const days = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
       const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth()

@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   meta: {
     title: 'Общие настройки',
@@ -90,7 +89,7 @@ export default {
   },
   methods: {
     saveSettings () {
-      axios.put(process.env.VUE_APP_SERVER + '/api/settings', this.settings)
+      this.$axios.put(process.env.VUE_APP_SERVER + '/api/settings', this.settings)
         .then(response => {
           this.$q.notify({
             type: 'positive',
