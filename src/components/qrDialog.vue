@@ -61,32 +61,34 @@ export default {
     url: String,
     id: String
   },
-  data: () => ({
-    showLocal: this.show,
-    btnStyle: {
-      top: '50%',
-      left: '50%',
-      transform: 'translateY(-50%) translateX(-50%)',
-      transition: 'all .3s'
-    },
-    active: false,
-    bottSheet: false,
-    sharing: {
-      url: process.env.VUE_APP_SERVER,
-      title: 'QR-Board',
-      description: 'QR-Board - доска объявлений',
-      quote: 'Доска объявлений в формате QR-кода',
-      hashtags: 'qrcode,free,generator',
-      twitterUser: ''
-    },
-    networks: [
-      { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
-      { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
-      { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
-      { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
-      { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
-    ]
-  }),
+  data () {
+    return {
+      showLocal: this.show,
+      btnStyle: {
+        top: '50%',
+        left: '50%',
+        transform: 'translateY(-50%) translateX(-50%)',
+        transition: 'all .3s'
+      },
+      active: false,
+      bottSheet: false,
+      sharing: {
+        url: process.env.VUE_APP_SERVER,
+        title: 'QR-Board',
+        description: 'QR-Board - доска объявлений',
+        quote: 'Доска объявлений в формате QR-кода',
+        hashtags: 'qrcode,free,generator',
+        twitterUser: ''
+      },
+      networks: [
+        { network: 'twitter', name: 'Twitter', icon: 'fab fah fa-lg fa-twitter', color: '#1da1f2' },
+        { network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
+        { network: 'facebook', name: 'Facebook', icon: 'fab fah fa-lg fa-facebook-f', color: '#1877f2' },
+        { network: 'odnoklassniki', name: 'Odnoklassniki', icon: 'fab fah fa-lg fa-odnoklassniki', color: '#ed812b' },
+        { network: 'vk', name: 'Vk', icon: 'fab fah fa-lg fa-vk', color: '#4a76a8' }
+      ]
+    }
+  },
   watch: {
     show () { this.showLocal = this.show }
   },
