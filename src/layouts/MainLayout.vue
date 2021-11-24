@@ -158,21 +158,15 @@ export default {
     setCookie () {
       this.$q.cookies.set('cookie_assent', 'cookie_session', { expires: '30d' })
     },
-    randomQR () {
-      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/random/' + 1, {
-      })
-        .then(response => {
-          const vals = {
-            qrImgDialogSrc: response.data[0].qrImgSrc,
-            id: response.data[0].qrId,
-            qrId: process.env.VUE_APP_URL + '/?id=' + response.data[0].qrId,
-            showQrDialog: true
-          }
-          this.$store.dispatch('board/set_qrDialogAct', vals)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    async randomQR () {
+      const response = await this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/random/' + 1)
+      const vals = {
+        qrImgDialogSrc: response.data[0].qrImgSrc,
+        id: response.data[0].qrId,
+        qrId: process.env.VUE_APP_URL + '/?id=' + response.data[0].qrId,
+        showQrDialog: true
+      }
+      this.$store.dispatch('board/set_qrDialogAct', vals)
     }
   },
   watch: {

@@ -108,27 +108,14 @@ export default {
     this.getItems()
   },
   methods: {
-    getItems () {
-      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records', {
-      })
-        .then(response => {
-          this.data = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    async getItems () {
+      const response = await this.$axios.get(process.env.VUE_APP_SERVER + '/api/records')
+      this.data = response.data
     },
-    deleteItem (id) {
+    async deleteItem (id) {
       this.confirmDialog = false
-      this.$axios.delete(process.env.VUE_APP_SERVER + '/api/records/delete/' + id, {
-      })
-        .then(response => {
-          console.log(response.data.state)
-          this.getItems()
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      await this.$axios.delete(process.env.VUE_APP_SERVER + '/api/records/delete/' + id)
+      this.getItems()
     },
     confirm (id, _id) {
       this.confirmId = id

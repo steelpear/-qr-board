@@ -93,20 +93,15 @@ export default {
     show () { this.showLocal = this.show }
   },
   methods: {
-    copyClipboard (url) {
-      copyToClipboard(url)
-        .then(() => {
-          this.$q.notify({
-            type: 'positive',
-            position: 'top',
-            message: 'Ссылка скопирована',
-            timeout: 2500,
-            actions: [{ icon: 'close', color: 'white' }]
-          })
-        })
-        .catch(() => {
-          console.log('Error copyng to clipboard!')
-        })
+    async copyClipboard (url) {
+      await copyToClipboard(url)
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Ссылка скопирована',
+        timeout: 2500,
+        actions: [{ icon: 'close', color: 'white' }]
+      })
     },
     saveImg (id) {
       const link = document.createElement('a')

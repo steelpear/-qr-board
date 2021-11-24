@@ -50,35 +50,24 @@ export default {
     login: '',
     password: ''
   }),
-  mounted () {
-    this.$axios.get(process.env.VUE_APP_SERVER + '/api/login', {
-    })
-      .then(response => {
-        this.login = response.data[0].login
-        this.password = this.$store.getters['board/GET_PASSWORD']
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  async mounted () {
+    const response = await this.$axios.get(process.env.VUE_APP_SERVER + '/api/login')
+    this.login = response.data[0].login
+    this.password = this.$store.getters['board/GET_PASSWORD']
   },
   methods: {
-    saveSettings () {
-      this.$axios.put(process.env.VUE_APP_SERVER + '/api/login', {
+    async saveSettings () {
+      await this.$axios.put(process.env.VUE_APP_SERVER + '/api/login', {
         login: this.login,
         password: this.password
       })
-        .then(response => {
-          this.$q.notify({
-            type: 'positive',
-            position: 'top',
-            message: 'Изменения сохранены',
-            timeout: 2500,
-            actions: [{ icon: 'close', color: 'white' }]
-          })
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Изменения сохранены',
+        timeout: 2500,
+        actions: [{ icon: 'close', color: 'white' }]
+      })
     }
   }
 }

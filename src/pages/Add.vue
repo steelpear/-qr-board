@@ -298,32 +298,21 @@ export default {
     getRandomInt (min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min)
     },
-    publicQr () {
+    async publicQr () {
       const imgSrc = this.$refs.canvas.$el.toDataURL()
       const id = 'qr' + this.getRandomInt(100000, 999999)
-      this.$axios.post(process.env.VUE_APP_SERVER + '/api/records', {
+      await this.$axios.post(process.env.VUE_APP_SERVER + '/api/records', {
         qrId: id,
         qrImgSrc: imgSrc,
         qrDate: new Date()
       })
-        .then(response => {
-          this.qrId = id
-          this.publicDialog = true
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.qrId = id
+      this.publicDialog = true
       if (this.$store.getters['board/GET_SETTINGS'].switchNoticeMail) {
-        this.$axios.post(process.env.VUE_APP_SERVER + '/api/records/mailer', {
+        await this.$axios.post(process.env.VUE_APP_SERVER + '/api/records/mailer', {
           email: this.$store.getters['board/GET_SETTINGS'].noticeMail,
           qrId: id
         })
-          .then(response => {
-            console.log(response.data)
-          })
-          .catch(error => {
-            console.log(error)
-          })
       }
     },
     recaptchaOk () {
@@ -333,20 +322,15 @@ export default {
     showPublicAd (qrId) {
       this.$router.push({ path: '/', query: { id: qrId } })
     },
-    copyClipboard () {
-      copyToClipboard(this.qrId)
-        .then(() => {
-          this.$q.notify({
-            type: 'positive',
-            position: 'top',
-            message: 'Номер скопирован',
-            timeout: 2500,
-            actions: [{ icon: 'close', color: 'white' }]
-          })
-        })
-        .catch(() => {
-          console.log('Error copyng to clipboard!')
-        })
+    async copyClipboard () {
+      await copyToClipboard(this.qrId)
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Номер скопирован',
+        timeout: 2500,
+        actions: [{ icon: 'close', color: 'white' }]
+      })
     }
   },
   computed: {

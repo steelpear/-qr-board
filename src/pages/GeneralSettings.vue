@@ -88,20 +88,15 @@ export default {
     }
   },
   methods: {
-    saveSettings () {
-      this.$axios.put(process.env.VUE_APP_SERVER + '/api/settings', this.settings)
-        .then(response => {
-          this.$q.notify({
-            type: 'positive',
-            position: 'top',
-            message: 'Изменения сохранены',
-            timeout: 2500,
-            actions: [{ icon: 'close', color: 'white' }]
-          })
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    async saveSettings () {
+      await this.$axios.put(process.env.VUE_APP_SERVER + '/api/settings', this.settings)
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: 'Изменения сохранены',
+        timeout: 2500,
+        actions: [{ icon: 'close', color: 'white' }]
+      })
     }
   }
 }

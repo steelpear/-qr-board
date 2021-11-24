@@ -63,29 +63,24 @@ export default {
     password: ''
   }),
   methods: {
-    goLogin () {
-      this.$axios.post(process.env.VUE_APP_SERVER + '/api/login', {
+    async goLogin () {
+      const response = await this.$axios.post(process.env.VUE_APP_SERVER + '/api/login', {
         login: this.login,
         password: this.password
       })
-        .then(response => {
-          if (!response.data.state) {
-            this.$q.notify({
-              type: 'negative',
-              position: 'top',
-              message: 'Логин или пароль не верны!',
-              timeout: 2500,
-              actions: [{ icon: 'close', color: 'white' }]
-            })
-          } else {
-            this.$q.cookies.set('login', 'login_session')
-            this.$router.push({ path: '/admin' })
-            this.$store.commit('board/SET_PASSWORD', this.password)
-          }
+      if (!response.data.state) {
+        this.$q.notify({
+          type: 'negative',
+          position: 'top',
+          message: 'Логин или пароль не верны!',
+          timeout: 2500,
+          actions: [{ icon: 'close', color: 'white' }]
         })
-        .catch(error => {
-          console.log(error)
-        })
+      } else {
+        this.$q.cookies.set('login', 'login_session')
+        this.$router.push({ path: '/admin' })
+        this.$store.commit('board/SET_PASSWORD', this.password)
+      }
     }
   }
 }

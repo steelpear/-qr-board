@@ -39,21 +39,15 @@ export default {
   }),
   methods: {
     fetchData (index, done) {
-      setTimeout(() => {
-        this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/limit/' + this.routeProps.limit + '/' + this.routeProps.skip, {
-        })
-          .then(response => {
-            const array = response.data
-            if (array.length > 0) {
-              this.qrItems = this.qrItems.concat(array)
-              this.routeProps.skip = this.routeProps.skip + this.routeProps.limit
-              this.timeOut = 1000
-              done()
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      setTimeout(async () => {
+        const response = await this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/limit/' + this.routeProps.limit + '/' + this.routeProps.skip)
+        const array = response.data
+        if (array.length > 0) {
+          this.qrItems = this.qrItems.concat(array)
+          this.routeProps.skip = this.routeProps.skip + this.routeProps.limit
+          this.timeOut = 1000
+          done()
+        }
       }, this.timeOut)
     },
     showQrImgLarge (src, id) {
@@ -75,25 +69,19 @@ export default {
       }, 500)
     }
   },
-  mounted () {
+  async mounted () {
     this.routeProps.skip = 0
     this.showLoading()
     this.fetchData()
     if (this.$route.query.id) {
-      this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id, {
-      })
-        .then(response => {
-          const vals = {
-            qrImgDialogSrc: response.data.qrImgSrc,
-            id: response.data.qrId,
-            qrId: process.env.VUE_APP_URL + '/?id=' + response.data.qrId,
-            showQrDialog: true
-          }
-          this.$store.dispatch('board/set_qrDialogAct', vals)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      const response = await this.$axios.get(process.env.VUE_APP_SERVER + '/api/records/find/' + this.$route.query.id)
+      const vals = {
+        qrImgDialogSrc: response.data.qrImgSrc,
+        id: response.data.qrId,
+        qrId: process.env.VUE_APP_URL + '/?id=' + response.data.qrId,
+        showQrDialog: true
+      }
+      this.$store.dispatch('board/set_qrDialogAct', vals)
     }
   },
   beforeDestroy () {
