@@ -44,8 +44,8 @@ module.exports = function (ctx) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_URL: ctx.dev ? 'http://localhost:8080' : 'https://qr-board.ru',
-        VUE_APP_SERVER: ctx.dev ? 'http://localhost:3001' : 'https://qr-board.ru:3001'
+        VUE_APP_URL: ctx.dev ? 'http://localhost' : 'https://qr-board.ru',
+        VUE_APP_SERVER: ctx.dev ? 'http://localhost:5001' : 'https://qr-board.ru:5001'
       },
 
       // transpile: false,
@@ -117,7 +117,8 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: false,
+      prodPort: 5000
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
