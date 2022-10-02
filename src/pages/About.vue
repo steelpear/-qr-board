@@ -92,13 +92,13 @@
       <q-icon name="fas fa-at" size="md" color="grey-9" class="q-mr-sm gt-sm" />
       <div v-if="settings" class="col text-grey-9 text-h5"><a :href="'mailto:' + settings.adminMail" target="_blank">{{ settings.adminMail }}</a> - для пожеланий и предложений.</div>
     </div>
-    <div class="row justify-center items-center content-center q-mt-md">
+    <!-- <div class="row justify-center items-center content-center q-mt-md">
       <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
       <div class="col text-grey-9 text-h5"><a href="https://qr-generator.ru/" target="_blank">QR-Generator</a> - бесплатный генератор QR-кодов.</div>
-    </div>
+    </div> -->
     <div class="row justify-center items-center content-center q-mt-md">
       <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
-      <div class="col text-grey-9 text-h5"><a href="https://all-letters.ru/" target="_blank">all-letters.ru</a> - письма, поздравления, благодарности.</div>
+      <div class="col text-grey-9 text-h5"><a href="https://xn----7sbbf5ab2awt9d6b.xn--p1ai/" target="_blank">ваши-письма.рф</a> - письма, поздравления, благодарности.</div>
     </div>
     <div class="row justify-center items-center content-center q-mt-md">
       <q-icon name="fas fa-link" size="md" color="grey-9" class="q-mr-sm gt-sm" />
